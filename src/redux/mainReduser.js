@@ -70,12 +70,12 @@ const mainReduser = (state = initialState, action) => {
         case HANDEL_BUY_CANCEL: return ({
             ...state,
             isBuy: false,
-            buyCandidate: action.idCandidate
+            buyCandidate: null
         })
         case HANDEL_WISH_CANCEL: return ({
             ...state,
             isWish: false,
-            wishCandidate: action.idCandidate
+            wishCandidate: null
         })
         case SAVE_AUTO: return ({
             ...state,

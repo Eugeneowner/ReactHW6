@@ -15,7 +15,10 @@ describe("Modal component", () => {
     expect(screen.getByText("Confirm")).toBeInTheDocument();
     expect(screen.getByText("Cancel")).toBeInTheDocument();
   });
-
+  it("Check snapshot without props", () => {
+    const modal = render(<Modal />);
+    expect(modal).toMatchSnapshot();
+  })
   it("Check render component with props", () => {
     const modal = {
       title: "title",
@@ -25,15 +28,27 @@ describe("Modal component", () => {
     expect(screen.getByText(modal.title)).toBeInTheDocument();
     expect(screen.getByText(modal.text)).toBeInTheDocument();
   });
+  it("Check snapshot with props", () => {
+    const modal = render(<Modal />)
+    expect(modal).toMatchSnapshot();
+  })
   it ("Check render component close modal", () => {
     render(<Modal closeButton={true} />)
     const closeBtn = screen.getByTestId("CloseBtn");
     expect(closeBtn).toBeInTheDocument(); 
   });
+  it("Check snapshot component without close", () => {
+    const modal = render(<Modal closeButton={false} />)
+    expect(modal).toMatchSnapshot();
+  })
   it("Check render component without close btn upper", () => {
     render(<Modal closeButton={false} />)
     expect(screen.queryByTestId("CloseBtn")).toBeNull()
   });
+  it("Check snapshot component without btn upper", () => {
+    const modal = render(<Modal closeButton={false} />)
+    expect(modal).toMatchSnapshot();
+  })
   it("Check click on buttons confirm click", () => {
     const onClick = jest.fn();
     render(<Modal handleConfirm={onClick} />);

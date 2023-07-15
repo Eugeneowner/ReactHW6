@@ -8,4 +8,8 @@ describe("Nav component", () => {
     expect(screen.getByText("OWNERSHIP")).toBeInTheDocument();
     expect(screen.getByText("CONTACT")).toBeInTheDocument();
   });
+  it("Create snapshot", () =>{
+    const nav = render(<Nav/>)
+    expect(nav).toMatchSnapshot()
+  })
 });

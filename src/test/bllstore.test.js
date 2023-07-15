@@ -7,7 +7,8 @@ import mainReduser, {
     confirmWish,
     handelBuyCancel,
     handelWishCancel,
-    clearBasket
+    clearBasket,
+    saveAuto
     
     
 
@@ -85,12 +86,34 @@ describe("Bll", () => {
         expect(isInWish).not.toBe(-1)
     })
 
-    // it("Check handel buy cancel", () => {
-    //     const id = 1
-    //     const newState = mainReduser(initialState, handelBuyCancel (id))
-    //     expect(newState.isBuy).toBe(true)
-    //     expect(newState.buyCandidate).toBe(id)
-    // })
+    it("Check handel buy cancel", () => {
+        const newState = mainReduser(initialState, handelBuyCancel())
+        expect(newState.isBuy).toBe(false)
+        expect(newState.buyCandidate).toBe(null)
+    })
+    it("Check handel wish cancel", () => {
+        const newState = mainReduser(initialState, handelWishCancel())
+        expect(newState.isWish).toBe(false)
+        expect(newState.wishCandidate).toBe(null)
+    })
+    it("Check save auto", () => {
+        const autoList = ["auto1", "auto2"]
+        const newState = mainReduser(initialState, saveAuto(autoList))
+        expect(newState.auto).toStrictEqual(autoList)
+    });
+
+    it("Check clear basket ", () => { 
+      
+        const tempState = {
+            ...initialState,
+            basketList:[1, 2, 3, 4],
+            countBuy:4
+        }
+        const newState = mainReduser(tempState, clearBasket())
+        expect(newState.basketList).toStrictEqual([])
+        expect(newState.countBuy).toBe(0)
+    })
+        
 }) 
 
 

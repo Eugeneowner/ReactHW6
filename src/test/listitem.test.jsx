@@ -17,10 +17,30 @@ describe("ListItem component", () => {
     expect(screen.getByText(name)).toBeInTheDocument();
     expect(screen.getByText(/100/)).toBeInTheDocument();
   });
+  it("Check snapshot with price and name", () => {
+    const name = "testName";
+    const price = 100;
+    const component = render(
+      <ListItem
+        name={name}
+        price={price}
+        wishList={[]}
+        basketList={[]}
+        id={1}
+      />
+    );
+    expect(component).toMatchSnapshot();
+  })
   it("Render with button buy", () => {
     render(<ListItem wishList={[]} basketList={[]} id={1} />);
     expect(screen.getByText("Buy now")).toBeInTheDocument();
   });
+  it("Check snapshot with button buy", () => {
+    const component = render(
+      <ListItem wishList={[]} basketList={[]} id={1} />
+    )
+    expect(component).toMatchSnapshot();
+  })
   it("Check click to button buy", () => {
     const id = 1;
     const onClick = jest.fn();
@@ -38,6 +58,11 @@ describe("ListItem component", () => {
     render(<ListItem wishList={[]} basketList={[1]} id={id} />);
     expect(screen.getByText("Buy cancel")).toBeInTheDocument();
   });
+  it("Check render with button buy cancel", () => {
+    const id = 1;
+    const componet = render(<ListItem wishList={[]} basketList={[1]}/>);
+    expect(componet).toMatchSnapshot();
+  })
   it("Check click buy cancel", () => {
     const id = 1;
     const onClick = jest.fn();
@@ -61,6 +86,14 @@ describe("ListItem component", () => {
          basketList={[]} 
          id={id}/>);
     expect(screen.getByText("Add to wish")).toBeInTheDocument();
+  });
+  it("Render with button wish list", () => {
+    const id = 1;
+    const componet = render(<ListItem
+      wishList={[]} 
+      basketList={[]} 
+      id={id}/>)
+      expect(componet).toMatchSnapshot();
   });
   it ("Check click to buttton wish list", () => {
     const id = 1  
@@ -87,6 +120,15 @@ describe("ListItem component", () => {
     />)
     expect(screen.getByTestId("btnRemoveWish")).toBeInTheDocument();
    })
+   it("Render with button remove wish", () => {
+    const id = 1
+    const componet = render(  <ListItem
+      wishList={[id]}
+      basketList={[]}
+      id={id}
+    />)
+    expect(componet).toMatchSnapshot();
+   });
    it ("Check click to button remove wish", () => {
     const id = 1  
     const onClick = jest.fn();
@@ -101,6 +143,19 @@ describe("ListItem component", () => {
       userEvent.click(buttonRemoveWish)
       expect(onClick).toHaveBeenCalledWith(id);
       expect(onClick).toHaveBeenCalledTimes(1);
+    })
+
+    it("Render with button remove", () => {
+      const id = 1
+      const componet = render(
+        <ListItem
+        wishList={[id]}
+        basketList={[]}
+        id={id}
+        
+      />
+      )
+      expect(componet).toMatchSnapshot();
     })
 });
 
