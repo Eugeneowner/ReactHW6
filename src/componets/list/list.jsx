@@ -1,7 +1,17 @@
+import { Fragment } from 'react'
 import s from './list.module.scss'
 import ListItem from './listItem'
+import Switch from '../switch/switch'
 
+import { useContext,useState } from "react"
+import { ViewContext } from "../../index"
 const List = (props) => {
+    const [viewType, setViewType] = useState(useContext(ViewContext))
+    //console.log(useContext(ViewContext))
+    const handleChangeView = (viewNewType) => {
+        setViewType(viewNewType)
+        localStorage.setItem('viewType', viewNewType)
+    }
     let AutoCollections = []
     if (props.auto){
      AutoCollections = props.auto.map(autoItem => {
@@ -22,9 +32,16 @@ const List = (props) => {
         )
     }) } 
     return (
-        <div className={s.main_products}>
-            {AutoCollections}
-        </div>
+        <Fragment>
+            <Switch
+                handleChangeView={handleChangeView}
+                viewType = {viewType}
+            />
+            <div className={`${s.main_products} ${viewType === 'list' && s.main_products_columns}`}>
+                {AutoCollections}
+            </div>
+        </Fragment>
+        
     )
 }
 

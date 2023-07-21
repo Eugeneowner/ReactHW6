@@ -1,0 +1,16 @@
+.switch {
+    width: 95%;
+    display: flex;
+    justify-content: flex-end;
+    &_btn{
+        cursor: pointer;
+        background: none;
+        border: 1px solid #FFF;
+        border-radius: 1px;
+        color: #000;
+        &_active{ 
+            color: #FFF;
+            background: #000;
+        }
+    }   
+}
